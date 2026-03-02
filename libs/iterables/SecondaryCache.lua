@@ -12,9 +12,13 @@ local SecondaryCache = require('class')('SecondaryCache', Iterable)
 
 function SecondaryCache:__init(array, primary)
 	local objects = {}
-	for _, data in ipairs(array) do
-		local obj = primary:_insert(data)
-		objects[obj:__hash()] = obj
+	if(array) then
+		for _, data in ipairs(array) do
+			local obj = primary:_insert(data)
+			objects[obj:__hash()] = obj
+		end
+	else
+		array = {}
 	end
 	self._count = #array
 	self._objects = objects
